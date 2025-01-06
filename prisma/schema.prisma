@@ -13,7 +13,7 @@ model BentoItem {
   title       String
   description String?
   link        String?
-  icon        String?
+  icon        String
   bgcolor     String?
   order       Int
   createdAt   DateTime @default(now())

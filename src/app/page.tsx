@@ -12,7 +12,9 @@ async function getBentoItems() {
 }
 
 // İkon bileşeni
-const SocialIcon = ({ name }: { name: string }) => {
+const SocialIcon = ({ name }: { name: string | null }) => {
+  if (!name) return null;
+  
   const icons = {
     github: (
       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -154,9 +156,11 @@ export default async function Home() {
               {/* İçerik */}
               <div className="relative z-10 transition-transform duration-500 group-hover:translate-y-[-2px]">
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="text-white w-6 h-6">
-                    <SocialIcon name={item.icon} />
-                  </div>
+                  {item.icon && (
+                    <div className="text-white w-6 h-6">
+                      <SocialIcon name={item.icon} />
+                    </div>
+                  )}
                   <h3 className="text-lg font-semibold text-white">{item.title}</h3>
                 </div>
                 {item.description && (
