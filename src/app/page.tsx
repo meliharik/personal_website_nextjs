@@ -1,24 +1,12 @@
-import { PrismaClient } from '@prisma/client'
 import Image from 'next/image'
 import AnimatedBackground from '@/components/AnimatedBackground'
-
-// PrismaClient'ı global olarak tanımlayalım
-const globalForPrisma = global as unknown as { prisma: PrismaClient }
-
-export const prisma =
-  globalForPrisma.prisma ||
-  new PrismaClient({
-    log: ['query'],
-  })
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+import { prisma } from '@/lib/prisma'
 
 async function getBentoItems() {
   try {
     const items = await prisma.bentoItem.findMany({
       orderBy: { order: 'asc' },
     })
-    console.log('Retrieved items:', items) // Debug için
     return items
   } catch (error) {
     console.error('Error fetching items:', error)
